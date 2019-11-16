@@ -7,6 +7,11 @@ import TodoListLinks from './TodoListLinks'
 
 class HomeScreen extends Component {
 
+
+    handleNewList = (e) => {
+
+    };
+
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;

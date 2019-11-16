@@ -13,11 +13,12 @@ class ListScreen extends Component {
 
     handleChange = (e) => {
         const { target } = e;
-
+        console.log(target.value);
         this.setState(state => ({
             ...state,
             [target.id]: target.value,
         }));
+        
     }
 
     render() {

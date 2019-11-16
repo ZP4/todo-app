@@ -44,6 +44,7 @@ class ReactReduxFirebaseApp extends React.Component {
         }
     }
 
+
     render() {
         return (
             <Provider store={this.state.store}>
