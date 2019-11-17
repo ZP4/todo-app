@@ -4,12 +4,16 @@ import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks'
+import {createTodoList} from "../../store/actions/actionCreators";
 
 class HomeScreen extends Component {
 
-
     handleNewList = (e) => {
-
+        this.props.createTodoList({
+            owner: "unknown",
+            name: "unknown",
+            key: Object.keys(this.props.todoLists).length
+        })
     };
 
     render() {
@@ -44,12 +48,18 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        todoLists: state.firestore.data.todoLists
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    createTodoList: (todolist) => dispatch(createTodoList(todolist)),
+});
+
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
       { collection: 'todoLists' },
     ]),

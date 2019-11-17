@@ -6,6 +6,7 @@
 // REDUCER, WHICH ADVANCES STATE
 
 // THESE ARE ALL THE TYPE OF ACTIONS WE'LL BE CREATING
+
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -32,11 +33,22 @@ export function logoutSuccess() {
 
 // THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS TODO LIST UPDATES
 export function createTodoList(todoList) {
-    return {
-        type: 'CREATE_TODO_LIST',
-        todoList
+    return(dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        firestore.collection('todoLists').add({
+           ...todoList
+        }).then(() => {
+            dispatch({
+                type: 'CREATE_TODO_LIST',
+                todoList
+            })
+        }).catch((error) => {
+            this.createTodoListError(error);
+        })
+
     }
 }
+
 export function createTodoListError(error) {
     return {
         type: 'CREATE_TODO_LIST_ERROR',

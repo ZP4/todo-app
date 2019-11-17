@@ -9,17 +9,21 @@ class ListScreen extends Component {
     state = {
         name: '',
         owner: '',
-    }
+    };
 
     handleChange = (e) => {
         const { target } = e;
-        console.log(target.value);
+        const firestore = this.props.firestore;
+        console.log(target.id);
         this.setState(state => ({
             ...state,
             [target.id]: target.value,
         }));
-        
-    }
+        firestore.collection('todoLists').doc(this.props.todoList.id).update({
+            [target.id]: target.value
+        })
+
+    };
 
     render() {
         const auth = this.props.auth;
@@ -54,6 +58,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     todoList,
     auth: state.firebase.auth,
+    firestore: state.firestore
   };
 };
 
