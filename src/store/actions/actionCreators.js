@@ -55,3 +55,9 @@ export function createTodoListError(error) {
         error
     }
 }
+
+export function editItemData() {
+    return(dispatch, getState, { getFirebase, getFirestore }) => {
+
+    }
+}
