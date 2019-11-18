@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemCard from './ItemCard';
 import { firestoreConnect } from 'react-redux-firebase';
 import {Link} from "react-router-dom";
-import ItemScreen from "./ItemScreen";
 
 
 class ItemsList extends React.Component {

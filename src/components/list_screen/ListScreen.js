@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
@@ -52,7 +52,6 @@ class ListScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("aasd "+ownProps.match.params.toString());
   const { id } = ownProps.match.params;
   const { todoLists } = state.firestore.data;
   const todoList = todoLists ? todoLists[id] : null;
