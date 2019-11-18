@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
+import { Modal, Button, Icon } from 'react-materialize';
 
 class ListScreen extends Component {
     state = {
@@ -25,6 +26,14 @@ class ListScreen extends Component {
 
     };
 
+    deleteList = (e) => {
+        const { target } = e;
+        const firestore = this.props.firestore;
+        firestore.collection('todoLists').doc(this.props.todoList.id).delete();
+        this.props.history.goBack();
+
+    };
+
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
@@ -36,6 +45,24 @@ class ListScreen extends Component {
         return (
             <div className="container white">
                 <h3 className="grey-text text-darken-3">Todo List</h3>
+                <Modal header="Delete List?" trigger={<Button/>}>
+                    <span>Do you want to delete the list?</span>
+                    <br/>
+                    <span>The action is irreversiable </span>
+                    <br/>
+                    <div>
+                        <Button className="modal-close" type="submit" onClick={this.deleteList}>
+                            Yes
+                            <Icon right>
+                                send
+                            </Icon>
+                        </Button>
+                        <Button className="modal-close">
+                            No
+                        </Button>
+                    </div>
+
+                </Modal>
                 <div className="input-field">
                     <label htmlFor="email" className="active">Name</label>
                     <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />

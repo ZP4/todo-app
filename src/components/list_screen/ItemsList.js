@@ -26,11 +26,25 @@ class ItemsList extends React.Component {
                         </Link>
                     );})
                 }
-                <div className="card z-depth-0 todo-list-link pink-lighten-3">
-                    <div className="card-content grey-text text-darken-3">
-                        <h6>asd</h6>
+                <Link to={{
+                    pathname: todoList.id+"/new" ,
+                    state: {
+                        item: {
+                            key: items.length,
+                            description: '',
+                            due_date: '',
+                            assigned_to: '',
+                            completed: false
+                        }
+                    }
+                }}>
+                    <div className="card z-depth-0 todo-list-link pink-lighten-3">
+                        <div className="card-content grey-text text-darken-3">
+
+                        </div>
                     </div>
-                </div>
+                </Link>
+
             </div>
 
         );
