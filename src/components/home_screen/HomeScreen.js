@@ -12,6 +12,7 @@ class HomeScreen extends Component {
         this.props.createTodoList({
             owner: "unknown",
             name: "unknown",
+            items: [],
             key: Object.keys(this.props.todoLists).length
         })
     };

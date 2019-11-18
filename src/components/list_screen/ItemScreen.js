@@ -52,8 +52,8 @@ class ItemScreen extends React.Component {
                         itemArray[x].completed = this.state.completed;
                     }
                 }
-                console.log(itemArray);
-                console.log(typeof itemArray[1]);
+                // console.log(itemArray);
+                // console.log(typeof itemArray[1]);
             }).finally((e) => {
                 firestore.collection('todoLists').doc(this.props.match.params.id).update({
                     items: itemArray
