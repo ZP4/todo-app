@@ -87,11 +87,11 @@ class ItemScreen extends React.Component {
             <div className="container white">
                 <h2>itemscreen</h2>
                 <br/><br/>
-                <TextInput label="Assigned To"  value={this.state.desc} onChange={this.handleChange} name="description" id="desc"/>
+                <TextInput label="Description"  value={this.state.desc} onChange={this.handleChange} name="description" id="desc"/>
                 <br/><br/>
                 <TextInput label="Assigned To"  value={this.state.assign} onChange={this.handleChange} name="assigned_to" id="assign"/>
                 <br/><br/>
-                <strong>Due Date:</strong>
+                <strong>Due Date</strong>
                 <input type="date" value={this.state.due} onChange={this.handleChange} name="due_date" id="due"/>
                 <br/><br/>
                 <Checkbox value="" checked={this.state.completed} onChange={this.handleChange} label="Completed" name="completed" id="completed"/>

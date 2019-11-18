@@ -9,11 +9,20 @@ import {createTodoList} from "../../store/actions/actionCreators";
 class HomeScreen extends Component {
 
     handleNewList = (e) => {
+        let date = new Date();
+        let le = 0;
+        if(this.props.todoLists === null) {
+            le = 0;
+        }
+        else {
+            le = Object.keys(this.props.todoLists).length;
+        }
         this.props.createTodoList({
             owner: "unknown",
             name: "unknown",
             items: [],
-            key: Object.keys(this.props.todoLists).length
+            key: le,
+            time: date.toString()
         })
     };
 
@@ -62,6 +71,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
+      { collection: 'todoLists', orderBy: ['time', 'desc']},
     ]),
 )(HomeScreen);

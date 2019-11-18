@@ -7,15 +7,6 @@ import {getFirestore} from "redux-firestore";
 
 class TodoListLinks extends React.Component {
 
-    // changeListsIndex = (e) => {
-    //     const firestore = getFirestore();
-    //     let a;
-    //     let d = firestore.collection('todoLists');
-    //     d.ref.get().then((querySnapshot) => {
-    //         a = querySnapshot.docs.map(doc => doc.data());
-    //     });
-    //     console.log(d);
-    // };
 
     render() {
         const todoLists = this.props.todoLists;

@@ -36,7 +36,7 @@ export function createTodoList(todoList) {
     return(dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         firestore.collection('todoLists').add({
-           ...todoList
+           ...todoList,
         }).then(() => {
             dispatch({
                 type: 'CREATE_TODO_LIST',
