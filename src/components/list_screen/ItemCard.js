@@ -1,23 +1,78 @@
 import React from 'react';
 import { Button } from 'react-materialize';
-import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 import {firestoreConnect} from "react-redux-firebase";
 import {connect} from 'react-redux';
 import { compose } from "redux";
+import {getFirestore} from "redux-firestore";
 
 class ItemCard extends React.Component {
-    handled = (e) => {
-        e.preventDefault();
-        console.log(this.props.item.key);
-        console.log(this.props.todoList.id);
-    };
+
+    find(arr, key) {
+        for(let i = 0; i<arr.length; i++) {
+            if(key === arr[i].key) {
+                return i;
+            }
+        }
+    }
+
+    swap(input, index_A, index_B) {
+        let temp = input[index_A];
+
+        input[index_A] = input[index_B];
+        input[index_B] = temp;
+    }
+
+    sort(arr) {
+        arr.forEach((el, index) => {
+            el.key = index;
+        })
+    }
+
 
     moveUp = (e) => {
+        e.preventDefault();
+        const firestore = this.props.firestore;
+        let itemArray;
+        firestore.collection('todoLists').doc(this.props.todoList.id).get()
+            .then((e) => {
+                itemArray = e.get('items');
+                let index = this.find(itemArray, this.props.item.key);
+                console.log(index);
+                console.log("before "+ itemArray[index]);
+                this.swap(itemArray, index, index-1);
+                console.log("after  "+ itemArray[index]);
+            }).finally((e) => {
 
+                if(!(this.props.item.key === 0)) {
+                    this.sort(itemArray);
+                    firestore.collection('todoLists').doc(this.props.todoList.id).update({
+                        items: itemArray
+                    });
+                }
+        })
     };
 
     moveDown = (e) => {
-
+        e.preventDefault();
+        console.log(this.props.item);
+        const firestore = this.props.firestore;
+        let itemArray;
+        firestore.collection('todoLists').doc(this.props.todoList.id).get()
+            .then((e) => {
+                itemArray = e.get('items');
+                let index = this.find(itemArray, this.props.item.key);
+                console.log(index);
+                console.log("before "+ itemArray[index]);
+                this.swap(itemArray, index, index+1);
+                console.log("after  "+ itemArray[index]);
+            }).finally((e) => {
+                if(!(this.props.todoList.items.length-1 === this.props.item.key)) {
+                    this.sort(itemArray);
+                    firestore.collection('todoLists').doc(this.props.todoList.id).update({
+                        items: itemArray
+                    });
+                }
+        })
     };
 
     deleteItem = (e) => {
@@ -33,8 +88,9 @@ class ItemCard extends React.Component {
                     }
                 }
             }).finally((e) => {
-            firestore.collection('todoLists').doc(this.props.todoList.id).update({
-                items: itemArray
+                this.sort(itemArray);
+                firestore.collection('todoLists').doc(this.props.todoList.id).update({
+                    items: itemArray
             });
         })
     };
@@ -48,17 +104,35 @@ class ItemCard extends React.Component {
                     <span className="card-title">{item.description}</span>
                     <span className="card-content"><b>Assigned To: </b>{item.assigned_to}</span>
                     <span className="card-content"><b>Date: </b>{item.due_date}</span>
-                    <span className="card-content">{item.completed ? "Completed" : "Pending"}</span>
+                    <span
+                        className="card-content"
+                        style={item.completed ? completedGreen : completedRed}
+                    >{item.completed ? "Completed" : "Pending"}</span>
                     <div className="card-content right">
-                        <Button onClick={this.handled}>Up</Button>
-                        <Button onClick={this.handled}>DOwn</Button>
-                        <Button onClick={this.deleteItem}>Remove</Button>
+                        <Button onClick={this.moveUp} style={this.props.item.key === 0 ? disabled : null}>Up</Button>
+                        <Button onClick={this.moveDown} style={this.props.todoList.items.length-1 === this.props.item.key ? disabled : null}>Down</Button>
+                        <Button onClick={this.deleteItem} >Remove</Button>
                     </div>
                 </div>
+
             </div>
         );
     }
 }
+const completedRed = {
+    color: "red"
+};
+
+const completedGreen = {
+    color: "green"
+};
+
+const disabled = {
+    backgroundColor: '#929292'
+};
+
+
+
 
 export default compose(
     connect(null),
