@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import {Link} from "react-router-dom";
 
 
+
 class ItemsList extends React.Component {
     render() {
         const todoList = this.props.todoList;
@@ -26,24 +27,7 @@ class ItemsList extends React.Component {
                         </Link>
                     );})
                 }
-                <Link to={{
-                    pathname: todoList.id+"/new" ,
-                    state: {
-                        item: {
-                            key: items.length,
-                            description: '',
-                            due_date: '',
-                            assigned_to: '',
-                            completed: false
-                        }
-                    }
-                }}>
-                    <div className="card z-depth-0 todo-list-link pink-lighten-3">
-                        <div className="card-content grey-text text-darken-3">
-                            hi
-                        </div>
-                    </div>
-                </Link>
+
 
             </div>
 

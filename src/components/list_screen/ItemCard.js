@@ -3,7 +3,6 @@ import { Button } from 'react-materialize';
 import {firestoreConnect} from "react-redux-firebase";
 import {connect} from 'react-redux';
 import { compose } from "redux";
-import {getFirestore} from "redux-firestore";
 
 class ItemCard extends React.Component {
 
