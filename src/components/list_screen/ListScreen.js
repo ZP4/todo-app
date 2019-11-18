@@ -51,14 +51,14 @@ class ListScreen extends Component {
                     <span>The action is irreversiable </span>
                     <br/>
                     <div>
-                        <Button className="modal-close" type="submit" onClick={this.deleteList}>
+                        <Button className="modal-close" waves="red" type="submit" onClick={this.deleteList}>
                             Yes
                             <Icon right>
                                 send
                             </Icon>
                         </Button>
-                        <Button className="modal-close">
-                            No
+                        <Button className="modal-close" flat waves="light">
+                            No commi
                         </Button>
                     </div>
 
