@@ -38,3 +38,65 @@ div.banner {
 .home_new_list_button:hover {
   box-shadow: 1px 2px;
 }
+
+.rounded_corner {
+  border-radius: 15px 50px 30px;
+}
+
+.add_pad {
+
+
+  padding-bottom: 20px;
+}
+
+#child {
+  -webkit-transition: all .8s ease;
+  -moz-transition: all .8s ease;
+  -ms-transition: all .8s ease;
+  -o-transition: all .8s ease;
+  transition: all .8s ease;
+  opacity: 0;
+}
+
+#parent {
+  position: relative;
+}
+#child:hover{
+  opacity: 1;
+}
+
+.basket {
+
+  transition:  .3s;
+  opacity: 1;
+}
+.basket.hide {
+  opacity: 0;
+}
+.basket1 {
+
+  transition:  .6s;
+  opacity: 1;
+}
+.basket1.hide {
+  opacity: 0;
+}
+.basket2 {
+
+
+  transition:  .9s;
+  opacity: 1;
+}
+.basket2.hide {
+  opacity: 0;
+}
+
+.add_margin {
+  margin-right: 8px;
+}
+
+.padding {
+  padding: 24px;
+  padding-top: 6px;
+  padding-bottom: 8px;
+}

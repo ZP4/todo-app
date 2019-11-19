@@ -111,57 +111,78 @@ class ListScreen extends Component {
 
         return (
             <div >
-                <div className="container white">
-                    <h3 className="grey-text text-darken-3">Todo List</h3>
-                    <Modal header="Delete List?" trigger={<Button/>}>
-                        <span>Do you want to delete the list?</span>
-                        <br/>
-                        <span>The action is irreversiable </span>
-                        <br/>
-                        <div>
-                            <Button className="modal-close" waves="red" type="submit" onClick={this.deleteList}>
-                                Yes
-                                <Icon right>
-                                    send
-                                </Icon>
-                            </Button>
-                            <Button className="modal-close" flat waves="light">
-                                No
-                            </Button>
+                <br/>
+                <div className="container white rounded_corner padding"  >
+
+                        <h3 className="grey-text text-darken-3">Todo List</h3>
+
+                        <div className="input-field">
+                            <label htmlFor="email" className="active">Name</label>
+                            <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                        </div>
+                        <div className="input-field">
+                            <label htmlFor="password" className="active">Owner</label>
+                            <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
                         </div>
 
-                    </Modal>
-                    <div className="input-field">
-                        <label htmlFor="email" className="active">Name</label>
-                        <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="password" className="active">Owner</label>
-                        <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
-                    </div>
+
+
                 </div>
+                <br/>
                 <div className="container">
-                    <div>
-                        <Link to={{
-                            pathname: todoList.id+"/new" ,
-                            state: {
-                                item: {
-                                    key: todoList.items.length,
-                                    description: '',
-                                    due_date: '',
-                                    assigned_to: '',
-                                    completed: false
+                    <div className="row">
+                        <div className="col s4 push-s8">
+                            <Link to={{
+                                pathname: todoList.id+"/new" ,
+                                state: {
+                                    item: {
+                                        key: todoList.items.length,
+                                        description: '',
+                                        due_date: '',
+                                        assigned_to: '',
+                                        completed: false
+                                    }
                                 }
-                            }
-                        }}>
-                            <Button>add item</Button>
-                        </Link>
-                        <Button id="desc" onClick={this.sort}>Desc</Button>
-                        <Button id="date" onClick={this.sort}>Date</Button>
-                        <Button id="stat" onClick={this.sort}>status</Button>
+                            }}>
+                                <Button className="add_margin">add item<Icon right large>add_box</Icon></Button>
+                            </Link>
+                            <Modal className="add_margin" header="Delete List?" trigger={<Button>Delete List <Icon right large >delete_forever</Icon></Button>}>
+                                <br/>
+                                <span>Do you want to delete the list?</span>
+                                <br/><br/>
+                                <span>The action is irreversible </span>
+                                <br/><br/><br/>
+                                <div>
+                                    <Button className="modal-close" waves="red" type="submit" onClick={this.deleteList}>
+                                        Yes
+                                        <Icon right>
+                                            send
+                                        </Icon>
+                                    </Button>
+                                    <Button className="modal-close" flat waves="light">
+                                        No
+                                    </Button>
+                                </div>
+
+                            </Modal>
+                        </div>
+                        <div className="col s8 pull-s4">
+                            <Button id="desc" className="add_margin" onClick={this.sort}>Description<Icon onClick={this.sort} right>{this.state.desc ? "arrow_drop_up" : "arrow_drop_down"}</Icon></Button>
+                            <Button id="date" className="add_margin" onClick={this.sort}>Date<Icon onClick={this.sort} right>{this.state.date ? "arrow_drop_up" : "arrow_drop_down"}</Icon></Button>
+                            <Button id="stat" className="add_margin" onClick={this.sort}>status<Icon onClick={this.sort} right>{this.state.stat ? "arrow_drop_up" : "arrow_drop_down"}</Icon></Button>
+
+                        </div>
+
+
                     </div>
+
+
+                </div>
+
+                <div className="container">
                     <ItemsList todoList={todoList} listId={this.props.id} />
                 </div>
+
 
             </div>
 

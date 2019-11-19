@@ -1,10 +1,14 @@
 import React from 'react';
-import { Button } from 'react-materialize';
+import { Button, Icon } from 'react-materialize';
 import {firestoreConnect} from "react-redux-firebase";
 import {connect} from 'react-redux';
 import { compose } from "redux";
 
 class ItemCard extends React.Component {
+
+    state = {
+        hover: false
+    };
 
     find(arr, key) {
         for(let i = 0; i<arr.length; i++) {
@@ -94,12 +98,18 @@ class ItemCard extends React.Component {
         })
     };
 
+    hover =(e) => {
+        this.setState(prevState => ({
+            hover: !prevState.hover
+        }));
+    };
+
     render() {
 
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link pink-lighten-3">
-                <div className="card-content grey-text text-darken-3">
+            <div className="card z-depth-0 todo-list-link pink-lighten-3 rounded_corner">
+                <div className="card-content grey-text text-darken-3 ">
                     <span className="card-title">{item.description}</span>
                     <span className="card-content"><b>Assigned To: </b>{item.assigned_to}</span>
                     <span className="card-content"><b>Date: </b>{item.due_date}</span>
@@ -107,11 +117,24 @@ class ItemCard extends React.Component {
                         className="card-content"
                         style={item.completed ? completedGreen : completedRed}
                     >{item.completed ? "Completed" : "Pending"}</span>
+
                     <div className="card-content right">
-                        <Button onClick={this.moveUp} style={this.props.item.key === 0 ? disabled : null}>Up</Button>
-                        <Button onClick={this.moveDown} style={this.props.todoList.items.length-1 === this.props.item.key ? disabled : null}>Down</Button>
-                        <Button onClick={this.deleteItem} >Remove</Button>
+                        <Button
+                            floating
+                            fab={{direction: 'left'}}
+                            className="fab"
+                            large
+                            id="parent"
+                        >
+                            <Button className="green lighten-2"  floating onClick={this.moveUp} style={this.props.item.key === 0 ? disabled : null}><Icon large>arrow_upward</Icon></Button>
+                                <Button className="teal lighten-2"  floating onClick={this.moveDown} style={this.props.todoList.items.length-1 === this.props.item.key ? disabled : null}><Icon large>arrow_downward</Icon></Button>
+                                <Button className="red"  floating onClick={this.deleteItem}><Icon large>close</Icon></Button>
+
+                        </Button>
                     </div>
+
+
+
                 </div>
 
             </div>
@@ -125,6 +148,7 @@ const completedRed = {
 const completedGreen = {
     color: "green"
 };
+
 
 const disabled = {
     backgroundColor: '#929292'
